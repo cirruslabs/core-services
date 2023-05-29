@@ -8,8 +8,8 @@ import (
 	"github.com/ThreeDotsLabs/watermill-googlecloud/pkg/googlecloud"
 	"github.com/ThreeDotsLabs/watermill-redisstream/pkg/redisstream"
 	"github.com/ThreeDotsLabs/watermill/message"
-	"github.com/cirruslabs/cirrus-backbone-services/pkg/pubsub"
-	"github.com/cirruslabs/cirrus-backbone-services/pkg/rpc"
+	"github.com/cirruslabs/core-services/pkg/pubsub"
+	"github.com/cirruslabs/core-services/pkg/rpc"
 	"github.com/google/uuid"
 	"github.com/redis/go-redis/v9"
 	"github.com/stretchr/testify/require"
@@ -134,7 +134,7 @@ func testBase(
 		}
 	}()
 
-	// Instantiate Cirrus Backbone Service PubSub client
+	// Instantiate Core Services PubSub client
 	conn, err := grpc.Dial(pubsub.Endpoint(), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	require.NoError(t, err)
 

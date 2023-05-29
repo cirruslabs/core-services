@@ -8,7 +8,7 @@ import (
 	"github.com/ThreeDotsLabs/watermill-googlecloud/pkg/googlecloud"
 	"github.com/ThreeDotsLabs/watermill-redisstream/pkg/redisstream"
 	"github.com/ThreeDotsLabs/watermill/message"
-	"github.com/cirruslabs/cirrus-backbone-services/pkg/pubsub"
+	"github.com/cirruslabs/core-services/pkg/pubsub"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"

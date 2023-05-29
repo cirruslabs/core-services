@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/cirruslabs/cirrus-backbone-services/pkg/commands"
+	"github.com/cirruslabs/core-services/pkg/commands"
 	"log"
 	"os"
 	"os/signal"

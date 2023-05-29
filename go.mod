@@ -1,4 +1,4 @@
-module github.com/cirruslabs/cirrus-backbone-services
+module github.com/cirruslabs/core-services
 
 go 1.20
 

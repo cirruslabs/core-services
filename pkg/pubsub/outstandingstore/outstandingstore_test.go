@@ -2,7 +2,7 @@ package outstandingstore_test
 
 import (
 	"github.com/ThreeDotsLabs/watermill/message"
-	"github.com/cirruslabs/cirrus-backbone-services/pkg/pubsub/outstandingstore"
+	"github.com/cirruslabs/core-services/pkg/pubsub/outstandingstore"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 	"math"
