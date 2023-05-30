@@ -29,7 +29,7 @@ func newRunCommand() *cobra.Command {
 		RunE:  runPubsub,
 	}
 
-	cmd.PersistentFlags().Uint16VarP(&port, "port", "p", 0,
+	cmd.PersistentFlags().Uint16VarP(&port, "port", "p", 8080,
 		"port on which the gRPC server should listen on")
 	cmd.PersistentFlags().StringVar(&gcpPubsubProjectID, "gcp-pubsub-project-id", "",
 		"GCP project ID in which you'd want to use the Google Cloud Pub/Sub")
