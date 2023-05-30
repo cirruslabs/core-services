@@ -7,7 +7,7 @@ import (
 
 func NewRootCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "cs",
+		Use:   "core-services",
 		Short: "Core Services",
 	}
 

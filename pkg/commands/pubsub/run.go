@@ -35,7 +35,7 @@ func newRunCommand() *cobra.Command {
 		"GCP project ID in which you'd want to use the Google Cloud Pub/Sub")
 	cmd.PersistentFlags().StringArrayVar(&redisServers, "redis-server", []string{},
 		"Redis server address (repeat the argument multiple times to specify multiple servers)")
-	cmd.PersistentFlags().BoolVarP(&verbose, "v", "verbose", false,
+	cmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false,
 		"produce more verbose output")
 
 	return cmd

@@ -8,3 +8,24 @@ docker_builder:
 
   env:
     HOME: /root
+
+docker_builder:
+  name: Build container image
+  only_if: $CIRRUS_TAG == ''
+  depends_on: Test
+  build_script:
+    - docker build -t ghcr.io/cirruslabs/core-services:latest .
+
+docker_builder:
+  name: Build and push container image
+  only_if: $CIRRUS_TAG != ''
+  depends_on: Test
+  env:
+    GITHUB_TOKEN: ENCRYPTED[!82ed873afdf627284305afef4958c85a8f73127b09978a9786ac521559630ea6c9a5ab6e7f8315abf9ead09b6eff6eae!]
+  login_script:
+    - echo $GITHUB_TOKEN | docker login ghcr.io -u fkorotkov --password-stdin
+  build_script:
+    - docker build -t ghcr.io/cirruslabs/core-services:latest .
+  push_script:
+    - docker tag ghcr.io/cirruslabs/core-services:latest ghcr.io/cirruslabs/core-services:$CIRRUS_TAG
+    - docker push --all-tags ghcr.io/cirruslabs/core-services
