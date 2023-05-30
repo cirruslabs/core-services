@@ -13,8 +13,12 @@ docker_builder:
   name: Build container image
   only_if: $CIRRUS_TAG == ''
   depends_on: Test
+  setup_script:
+    - docker buildx create --name multibuilder
+    - docker buildx use multibuilder
+    - docker buildx inspect --bootstrap
   build_script:
-    - docker build -t ghcr.io/cirruslabs/core-services:latest .
+    - docker buildx build --platform linux/amd64,linux/arm64 .
 
 docker_builder:
   name: Build and push container image
@@ -24,8 +28,12 @@ docker_builder:
     GITHUB_TOKEN: ENCRYPTED[!82ed873afdf627284305afef4958c85a8f73127b09978a9786ac521559630ea6c9a5ab6e7f8315abf9ead09b6eff6eae!]
   login_script:
     - echo $GITHUB_TOKEN | docker login ghcr.io -u fkorotkov --password-stdin
-  build_script:
-    - docker build -t ghcr.io/cirruslabs/core-services:latest .
-  push_script:
-    - docker tag ghcr.io/cirruslabs/core-services:latest ghcr.io/cirruslabs/core-services:$CIRRUS_TAG
-    - docker push --all-tags ghcr.io/cirruslabs/core-services
+  setup_script:
+    - docker buildx create --name multibuilder
+    - docker buildx use multibuilder
+    - docker buildx inspect --bootstrap
+  deploy_script: |
+    docker buildx build --push --platform linux/amd64,linux/arm64 \
+      --tag ghcr.io/cirruslabs/core-services:$CIRRUS_TAG \
+      --tag ghcr.io/cirruslabs/core-services:latest \
+      .
