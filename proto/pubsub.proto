@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+service PubSub {
+  rpc Publish(FromPublisher) returns (ToPublisher);
+  rpc Subscribe(stream FromSubscriber) returns (stream ToSubscriber);
+}
+
+message FromPublisher {
+  // Topic on which to publish the messages
+  string topic = 1;
+
+  // Messages to publish
+  repeated Message messages = 2;
+}
+
+message ToPublisher {
+  // empty for now
+}
+
+message FromSubscriber {
+  message SubscriptionRequest {
+    string topic = 1;
+    string subscriber_group = 2;
+    uint64 ack_deadline_seconds = 3;
+  }
+
+  message Ack {
+    string message_id = 1;
+  }
+
+  message Nack {
+    string message_id = 1;
+  }
+
+  oneof request {
+    SubscriptionRequest subscription_request = 1;
+    Ack ack = 2;
+    Nack nack = 3;
+  }
+}
+
+message ToSubscriber {
+  message SubscriptionResponse {
+    // empty for now
+  }
+
+  oneof response {
+    SubscriptionResponse subscription_response = 1;
+    Message message = 2;
+  }
+}
+
+message Message {
+  // Opaque message identifier that can be used for ACK/NACK'ing
+  //
+  // Message identifiers are scoped per each Subscribe() call,
+  // so acknowledging a message on a different Subscribe() call
+  // will result in an error.
+  string id = 1;
+
+  // Message payload
+  bytes payload = 2;
+}

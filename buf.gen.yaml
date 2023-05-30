@@ -1,0 +1,12 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: "github.com/cirruslabs/core-services/pkg/rpc"
+plugins:
+  - plugin: go
+    out: pkg/rpc
+    opt: paths=source_relative
+  - plugin: go-grpc
+    out: pkg/rpc
+    opt: paths=source_relative
